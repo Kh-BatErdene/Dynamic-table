@@ -12,6 +12,13 @@ export default function Home() {
   const [isFive, setIsFive] = useState([]);
   const [isSix, setIsSix] = useState([]);
   const [isSeven, setIsSeven] = useState([]);
+  const [dotline2, setlinedata2] = useState([]);
+  const [isTwo2, setIsTwo2] = useState([]);
+  const [isThree2, setIsThree2] = useState([]);
+  const [isFour2, setIsFour2] = useState([]);
+  const [isFive2, setIsFive2] = useState([]);
+  const [isSix2, setIsSix2] = useState([]);
+  const [isSeven2, setIsSeven2] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
   const [rightSideGraph, setRightSideGraph] = useState([]);
 
@@ -126,32 +133,32 @@ export default function Home() {
       const x = 147 + 20 * index;
       const y = 37 + 20 * props.fieldId;
       if (value === "UpArrow") {
-        setlinedata((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
+        setlinedata2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
       if (value === "UpNarrowArrow") {
-        setIsTwo((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
+        setIsTwo2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
       if (value === "DownTriangle") {
-        setIsThree((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
+        setIsThree2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
       if (value === "UpTriangle") {
-        setIsFour((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
+        setIsFou2r((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
       if (value === "RightDotArrow") {
-        setIsFive((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
+        setIsFive2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
 
       if (value === "Dot") {
-        setIsSix((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
+        setIsSix2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
       if (value === "Xmarks") {
-        setIsSeven((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
+        setIsSeven2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
 
       updateField(changeData, index);
     }
 
-    return isColumnArray.map((item, index) => {
+    return isColumnArray.slice(0, 5).map((item, index) => {
       const value = item[props.fieldId];
 
       return (
@@ -319,6 +326,18 @@ export default function Home() {
               <polyline points={isFive} fill="none" stroke="black" />
               <polyline points={isSix} fill="none" stroke="black" />
               <polyline points={isSeven} fill="none" stroke="black" />
+              <polyline
+                points={dotline}
+                fill="none"
+                stroke="black"
+                style={{ zIndex: 100 }}
+              />
+              <polyline points={isTwo2} fill="none" stroke="black" />
+              <polyline points={isThree2} fill="none" stroke="black" />
+              <polyline points={isFour2} fill="none" stroke="black" />
+              <polyline points={isFive2} fill="none" stroke="black" />
+              <polyline points={isSix2} fill="none" stroke="black" />
+              <polyline points={isSeven2} fill="none" stroke="black" />
             </svg>
 
             <table
