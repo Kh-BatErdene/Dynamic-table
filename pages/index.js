@@ -28,7 +28,6 @@ export default function Home() {
   function AddRow() {
     setIsRowArray([...isRowArray, {}]);
     setdotPlus((prev) => prev + 24);
-    console.log(dotPlus);
   }
 
   function deleteColumn() {
@@ -120,24 +119,11 @@ export default function Home() {
       );
     });
   }
-  function updateFieldRight(changeDataitem, idx) {
-    let update = rightSideGraph.map((item, index) => {
-      if (idx === index) {
-        return { ...changeDataitem };
-      } else {
-        return item;
-      }
-    });
-    setRightSideGraph(update);
-  }
-  function RightField(props) {
+  function AddGraphicFieldRight(props) {
     function handleClick(value, index) {
-      const changeData = {
-        ...setRightSideGraph[index],
-        [props.fieldId]: value,
-      };
+      const changeData = { ...isColumnArray[index], [props.fieldId]: value };
 
-      const x = 147 + 29 * index;
+      const x = 147 + 20 * index;
       const y = 37 + 20 * props.fieldId;
       if (value === "UpArrow") {
         setlinedata((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
@@ -162,10 +148,10 @@ export default function Home() {
         setIsSeven((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
 
-      updateFieldRight(changeData, index);
+      updateField(changeData, index);
     }
 
-    return rightSideGraph.map((item, index) => {
+    return isColumnArray.map((item, index) => {
       const value = item[props.fieldId];
 
       return (
@@ -705,15 +691,16 @@ export default function Home() {
                       </div>
                     </div>
                   </td>
+                  <AddGraphicFieldRight fieldId="22" />
 
-                  {new Array(5).fill(
+                  {/* {new Array(5).fill(
                     <td>
                       <input
                         type="text"
                         className="width20 height20 p_none m_none story_fs_10 center_text"
                       />
                     </td>
-                  )}
+                  )} */}
                   <td rowSpan="23" style={{ width: "34px" }}>
                     <div className="storyFontSize center_text">
                       <div
@@ -747,70 +734,43 @@ export default function Home() {
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="1" />
-
-                  {new Array(5).fill(
+                  <AddGraphicFieldRight fieldId="22" />
+                  {/* {new Array(5).fill(
                     <td>
                       <input
                         type="text"
                         className="width20 height20 p_none m_none story_fs_10 center_text"
                       />
                     </td>
-                  )}
+                  )} */}
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="2" />
-                  {new Array(5).fill(
+                  <AddGraphicFieldRight fieldId="22" />
+                  {/* {new Array(5).fill(
                     <td>
                       <input
                         type="text"
                         className="width20 height20 p_none m_none story_fs_10 center_text"
                       />
                     </td>
-                  )}
+                  )} */}
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="3" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="4" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="5" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="6" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr>
                   <td rowSpan="15" className="width30">
@@ -865,168 +825,63 @@ export default function Home() {
                     </div>
                   </td>
                   <AddGraphicField fieldId="7" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="8" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="9" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="10" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="11" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="12" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="13" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="14" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="15" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="16" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="17" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="18" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="19" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="20" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="21" />
-                  {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )}
+                  <AddGraphicFieldRight fieldId="22" />
                 </tr>
               </tbody>
             </table>
