@@ -3,8 +3,16 @@ import { useState } from "react";
 export default function Home() {
   //useStates
   const [isRowArray, setIsRowArray] = useState([]);
-  const [isColumnArray, setIsColumnArray] = useState([]);
+  const [isColumnArray, setIsColumnArray] = useState([{ unusedelement: "gg" }]);
+  const [rightFieldArray, setRightFieldArray] = useState([
+    { unusedelement: "gg" },
+    { unusedelement: "gg" },
+    { unusedelement: "gg" },
+    { unusedelement: "gg" },
+    { unusedelement: "gg" },
+  ]);
   const [dotPlus, setdotPlus] = useState(220);
+  const [colPlus, setColPlus] = useState(250);
   const [dotline, setlinedata] = useState([]);
   const [isTwo, setIsTwo] = useState([]);
   const [isThree, setIsThree] = useState([]);
@@ -20,11 +28,15 @@ export default function Home() {
   const [isSix2, setIsSix2] = useState([]);
   const [isSeven2, setIsSeven2] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [rightSideGraph, setRightSideGraph] = useState([]);
+  const [undoElement, setUndoElement] = useState([]);
 
   // 1. onclicking functions
 
   function AddColumn() {
+    if (isColumnArray.length < 9) {
+      setColPlus((prev) => prev + 33);
+    }
+
     if (isColumnArray.length < 9) {
       setIsColumnArray([...isColumnArray, {}]);
     } else {
@@ -38,6 +50,9 @@ export default function Home() {
   }
 
   function deleteColumn() {
+    if (isColumnArray.length < 10) {
+      setColPlus((prev) => prev - 33);
+    }
     setIsDisabled(false);
     if (isColumnArray.length > 0) {
       const updateArray = [...isColumnArray];
@@ -55,7 +70,22 @@ export default function Home() {
     }
   }
 
-  const handleUndo = () => {};
+  const handleUndo = () => {
+    if (undoElement.length > 0) {
+      const prevItem = undoElement.pop();
+
+      setIsColumnArray(prevItem);
+      setlinedata(prevItem);
+      setIsTwo(prevItem);
+      setIsThree(prevItem);
+      setIsFour(prevItem);
+      setIsFive(prevItem);
+      setIsSix(prevItem);
+      setIsSeven(prevItem);
+
+      setUndoElement([...undoElement]);
+    }
+  };
 
   function updateField(changeDataitem, idx) {
     let update = isColumnArray.map((item, index) => {
@@ -66,20 +96,23 @@ export default function Home() {
       }
     });
     setIsColumnArray(update);
+    setUndoElement([...undoElement, update]);
   }
 
   function AddGraphicField(props) {
     function handleClick(value, index) {
       const changeData = { ...isColumnArray[index], [props.fieldId]: value };
 
-      const x = 147 + 29 * index;
-      const y = 37 + 20 * props.fieldId;
+      const x = 148 + 28.5 * index;
+      const y = 44 + 20 * props.fieldId;
       if (value === "UpArrow") {
         setlinedata((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
+
       if (value === "UpNarrowArrow") {
         setIsTwo((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
+
       if (value === "DownTriangle") {
         setIsThree((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
@@ -93,7 +126,7 @@ export default function Home() {
       if (value === "Dot") {
         setIsSix((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
-      if (value === "Xmarks") {
+      if (value === "Xmark") {
         setIsSeven((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
 
@@ -126,12 +159,28 @@ export default function Home() {
       );
     });
   }
+
+  function updateField2(changeDataitem, idx) {
+    let update = rightFieldArray.map((item, index) => {
+      if (idx === index) {
+        return { ...changeDataitem };
+      } else {
+        return item;
+      }
+    });
+    setRightFieldArray(update);
+    setUndoElement([...undoElement, update]);
+  }
   function AddGraphicFieldRight(props) {
     function handleClick(value, index) {
-      const changeData = { ...isColumnArray[index], [props.fieldId]: value };
+      const changeData = {
+        ...rightFieldArray[index],
+        [props.rightfieldId]: value,
+      };
 
-      const x = 147 + 20 * index;
-      const y = 37 + 20 * props.fieldId;
+      const x = 8.5 + 20 * index;
+      const y = 34 + 20 * props.rightfieldId;
+      console.log("is x: ", x, "is y:", y);
       if (value === "UpArrow") {
         setlinedata2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
@@ -142,7 +191,7 @@ export default function Home() {
         setIsThree2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
       if (value === "UpTriangle") {
-        setIsFou2r((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
+        setIsFour2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
       if (value === "RightDotArrow") {
         setIsFive2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
@@ -151,15 +200,15 @@ export default function Home() {
       if (value === "Dot") {
         setIsSix2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
-      if (value === "Xmarks") {
+      if (value === "Xmark") {
         setIsSeven2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
 
-      updateField(changeData, index);
+      updateField2(changeData, index);
     }
 
-    return isColumnArray.slice(0, 5).map((item, index) => {
-      const value = item[props.fieldId];
+    return rightFieldArray.map((item, index) => {
+      const value = item[props.rightfieldId];
 
       return (
         <td key={index} className="width20 height20  center_text">
@@ -326,6 +375,20 @@ export default function Home() {
               <polyline points={isFive} fill="none" stroke="black" />
               <polyline points={isSix} fill="none" stroke="black" />
               <polyline points={isSeven} fill="none" stroke="black" />
+            </svg>
+            <svg
+              viewBox="0 0 600 495"
+              height="600px"
+              style={{
+                position: "absolute",
+                top: `${dotPlus}px`,
+                left: `${colPlus}`,
+                zIndex: "-1",
+
+                minWidth: "495px",
+                width: "100%",
+              }}
+            >
               <polyline
                 points={dotline}
                 fill="none"
@@ -347,9 +410,12 @@ export default function Home() {
             >
               <thead className="storyFontSize right_border">
                 <tr className="height20">
-                  <td colSpan="4">Хэрэглэсэн эм &nbsp; &nbsp; цаг/мин</td>
+                  <td colSpan="4">
+                    Хэрэглэсэн эм &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                    &nbsp;цаг/мин
+                  </td>
                   <AddTd />
-                  <td>Эмийн дүн</td>
+                  <td className="center_text">Эмийн дүн</td>
 
                   {new Array(4).fill(
                     <td>
@@ -387,7 +453,7 @@ export default function Home() {
                       className="width55 height20 p_none m_none story_fs_10 center_text"
                     />
                   </td>
-                  {new Array(6).fill(
+                  {new Array(5).fill(
                     <td>
                       <input
                         type="text"
@@ -395,6 +461,12 @@ export default function Home() {
                       />
                     </td>
                   )}
+                  <td>
+                    <input
+                      type="text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
+                    />
+                  </td>
                 </tr>
 
                 {/* Хүчилтөрөгч  */}
@@ -414,7 +486,7 @@ export default function Home() {
                       className="width55 height20 p_none m_none story_fs_10 center_text"
                     />
                   </td>
-                  {new Array(6).fill(
+                  {new Array(5).fill(
                     <td>
                       <input
                         type="text"
@@ -422,6 +494,12 @@ export default function Home() {
                       />
                     </td>
                   )}
+                  <td>
+                    <input
+                      type="text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
+                    />
+                  </td>
                 </tr>
 
                 {/* Агаар  */}
@@ -441,7 +519,7 @@ export default function Home() {
                       className="width55 height20 p_none m_none story_fs_10 center_text"
                     />
                   </td>
-                  {new Array(6).fill(
+                  {new Array(5).fill(
                     <td>
                       <input
                         type="text"
@@ -449,6 +527,12 @@ export default function Home() {
                       />
                     </td>
                   )}
+                  <td>
+                    <input
+                      type="text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
+                    />
+                  </td>
                 </tr>
 
                 {/* //Сэлбэсэн шингэн  */}
@@ -475,7 +559,7 @@ export default function Home() {
                   <td>
                     <input
                       type="text"
-                      className="width20 height20 p_none m_none story_fs_10 center_text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
                     />
                   </td>
                 </tr>
@@ -497,7 +581,7 @@ export default function Home() {
                   <td>
                     <input
                       type="text"
-                      className="width20 height20 p_none m_none story_fs_10 center_text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
                     />
                   </td>
                 </tr>
@@ -516,7 +600,7 @@ export default function Home() {
                   <td>
                     <input
                       type="text"
-                      className="width20 height20 p_none m_none story_fs_10 center_text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
                     />
                   </td>
                 </tr>
@@ -535,7 +619,7 @@ export default function Home() {
                   <td>
                     <input
                       type="text"
-                      className="width20 height20 p_none m_none story_fs_10 center_text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
                     />
                   </td>
                 </tr>
@@ -554,7 +638,7 @@ export default function Home() {
                   <td>
                     <input
                       type="text"
-                      className="width20 height20 p_none m_none story_fs_10 center_text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
                     />
                   </td>
                 </tr>
@@ -582,10 +666,11 @@ export default function Home() {
                       className="width20 height20 p_none m_none story_fs_10 center_text"
                     />
                   </td>
+
                   <td>
                     <input
                       type="text"
-                      className="width20 height20 p_none m_none story_fs_10 center_text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
                     />
                   </td>
                 </tr>
@@ -616,7 +701,7 @@ export default function Home() {
                   <td>
                     <input
                       type="text"
-                      className="width20 height20 p_none m_none story_fs_10 center_text"
+                      className="width30 height20 p_none m_none story_fs_10 center_text "
                     />
                   </td>
                 </tr>
@@ -710,16 +795,8 @@ export default function Home() {
                       </div>
                     </div>
                   </td>
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="0" />
 
-                  {/* {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )} */}
                   <td rowSpan="23" style={{ width: "34px" }}>
                     <div className="storyFontSize center_text">
                       <div
@@ -753,45 +830,29 @@ export default function Home() {
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="1" />
-                  <AddGraphicFieldRight fieldId="22" />
-                  {/* {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )} */}
+                  <AddGraphicFieldRight rightfieldId="1" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="2" />
-                  <AddGraphicFieldRight fieldId="22" />
-                  {/* {new Array(5).fill(
-                    <td>
-                      <input
-                        type="text"
-                        className="width20 height20 p_none m_none story_fs_10 center_text"
-                      />
-                    </td>
-                  )} */}
+                  <AddGraphicFieldRight rightfieldId="2" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="3" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="3" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="4" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="4" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="5" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="5" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="6" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="6" />
                 </tr>
-                <tr>
+                <tr className="height30">
                   <td rowSpan="15" className="width30">
                     <div
                       style={{ marginTop: "5px" }}
@@ -844,63 +905,63 @@ export default function Home() {
                     </div>
                   </td>
                   <AddGraphicField fieldId="7" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="7" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="8" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="8" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="9" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="9" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="10" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="10" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="11" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="11" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="12" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="12" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="13" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="13" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="14" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="14" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="15" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="15" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="16" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="16" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="17" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="17" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="18" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="18" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="19" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="19" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="20" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="20" />
                 </tr>
                 <tr className="height20">
                   <AddGraphicField fieldId="21" />
-                  <AddGraphicFieldRight fieldId="22" />
+                  <AddGraphicFieldRight rightfieldId="21" />
                 </tr>
               </tbody>
             </table>
