@@ -73,6 +73,7 @@ export default function Home() {
   const handleUndo = () => {
     if (undoElement.length > 0) {
       const prevItem = undoElement.pop();
+      console.log(prevItem);
 
       setIsColumnArray(prevItem);
       setlinedata(prevItem);
@@ -101,10 +102,10 @@ export default function Home() {
 
   function AddGraphicField(props) {
     function handleClick(value, index) {
-      const changeData = { ...isColumnArray[index], [props.fieldId]: value };
+      const changeData = { ...isColumnArray[index], [props.fieldid]: value };
 
       const x = 148 + 28.5 * index;
-      const y = 44 + 20 * props.fieldId;
+      const y = 40 + 20 * props.fieldid;
       if (value === "UpArrow") {
         setlinedata((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
       }
@@ -134,7 +135,7 @@ export default function Home() {
     }
 
     return isColumnArray.map((item, index) => {
-      const value = item[props.fieldId];
+      const value = item[props.fieldid];
 
       return (
         <td key={index} className="width30 height20  center_text">
@@ -175,11 +176,11 @@ export default function Home() {
     function handleClick(value, index) {
       const changeData = {
         ...rightFieldArray[index],
-        [props.rightfieldId]: value,
+        [props.rightfieldid]: value,
       };
 
       const x = 8.5 + 20 * index;
-      const y = 34 + 20 * props.rightfieldId;
+      const y = 30 + 20 * props.rightfieldid;
       console.log("is x: ", x, "is y:", y);
       if (value === "UpArrow") {
         setlinedata2((prev) => [...prev, `${x}, ${y}, ${x}, ${y}`]);
@@ -208,7 +209,7 @@ export default function Home() {
     }
 
     return rightFieldArray.map((item, index) => {
-      const value = item[props.rightfieldId];
+      const value = item[props.rightfieldid];
 
       return (
         <td key={index} className="width20 height20  center_text">
@@ -390,7 +391,7 @@ export default function Home() {
               }}
             >
               <polyline
-                points={dotline}
+                points={dotline2}
                 fill="none"
                 stroke="black"
                 style={{ zIndex: 100 }}
@@ -404,7 +405,7 @@ export default function Home() {
             </svg>
 
             <table
-              fieldId="table"
+              fieldid="table"
               className="tg border_bottom_n "
               style={{ height: "666px" }}
             >
@@ -414,6 +415,7 @@ export default function Home() {
                     Хэрэглэсэн эм &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
                     &nbsp;цаг/мин
                   </td>
+
                   <AddTd />
                   <td className="center_text">Эмийн дүн</td>
 
@@ -760,7 +762,7 @@ export default function Home() {
                       <br /> <br /> <br />
                     </div>
                   </td>
-                  <AddGraphicField fieldId="0" />
+                  <AddGraphicField fieldid="0" />
 
                   <td rowSpan="23" style={{ width: "34px" }}>
                     <div
@@ -795,7 +797,7 @@ export default function Home() {
                       </div>
                     </div>
                   </td>
-                  <AddGraphicFieldRight rightfieldId="0" />
+                  <AddGraphicFieldRight rightfieldid="0" />
 
                   <td rowSpan="23" style={{ width: "34px" }}>
                     <div className="storyFontSize center_text">
@@ -829,28 +831,28 @@ export default function Home() {
                   </td>
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="1" />
-                  <AddGraphicFieldRight rightfieldId="1" />
+                  <AddGraphicField fieldid="1" />
+                  <AddGraphicFieldRight rightfieldid="1" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="2" />
-                  <AddGraphicFieldRight rightfieldId="2" />
+                  <AddGraphicField fieldid="2" />
+                  <AddGraphicFieldRight rightfieldid="2" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="3" />
-                  <AddGraphicFieldRight rightfieldId="3" />
+                  <AddGraphicField fieldid="3" />
+                  <AddGraphicFieldRight rightfieldid="3" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="4" />
-                  <AddGraphicFieldRight rightfieldId="4" />
+                  <AddGraphicField fieldid="4" />
+                  <AddGraphicFieldRight rightfieldid="4" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="5" />
-                  <AddGraphicFieldRight rightfieldId="5" />
+                  <AddGraphicField fieldid="5" />
+                  <AddGraphicFieldRight rightfieldid="5" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="6" />
-                  <AddGraphicFieldRight rightfieldId="6" />
+                  <AddGraphicField fieldid="6" />
+                  <AddGraphicFieldRight rightfieldid="6" />
                 </tr>
                 <tr className="height30">
                   <td rowSpan="15" className="width30">
@@ -904,64 +906,64 @@ export default function Home() {
                       </div>
                     </div>
                   </td>
-                  <AddGraphicField fieldId="7" />
-                  <AddGraphicFieldRight rightfieldId="7" />
+                  <AddGraphicField fieldid="7" />
+                  <AddGraphicFieldRight rightfieldid="7" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="8" />
-                  <AddGraphicFieldRight rightfieldId="8" />
+                  <AddGraphicField fieldid="8" />
+                  <AddGraphicFieldRight rightfieldid="8" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="9" />
-                  <AddGraphicFieldRight rightfieldId="9" />
+                  <AddGraphicField fieldid="9" />
+                  <AddGraphicFieldRight rightfieldid="9" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="10" />
-                  <AddGraphicFieldRight rightfieldId="10" />
+                  <AddGraphicField fieldid="10" />
+                  <AddGraphicFieldRight rightfieldid="10" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="11" />
-                  <AddGraphicFieldRight rightfieldId="11" />
+                  <AddGraphicField fieldid="11" />
+                  <AddGraphicFieldRight rightfieldid="11" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="12" />
-                  <AddGraphicFieldRight rightfieldId="12" />
+                  <AddGraphicField fieldid="12" />
+                  <AddGraphicFieldRight rightfieldid="12" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="13" />
-                  <AddGraphicFieldRight rightfieldId="13" />
+                  <AddGraphicField fieldid="13" />
+                  <AddGraphicFieldRight rightfieldid="13" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="14" />
-                  <AddGraphicFieldRight rightfieldId="14" />
+                  <AddGraphicField fieldid="14" />
+                  <AddGraphicFieldRight rightfieldid="14" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="15" />
-                  <AddGraphicFieldRight rightfieldId="15" />
+                  <AddGraphicField fieldid="15" />
+                  <AddGraphicFieldRight rightfieldid="15" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="16" />
-                  <AddGraphicFieldRight rightfieldId="16" />
+                  <AddGraphicField fieldid="16" />
+                  <AddGraphicFieldRight rightfieldid="16" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="17" />
-                  <AddGraphicFieldRight rightfieldId="17" />
+                  <AddGraphicField fieldid="17" />
+                  <AddGraphicFieldRight rightfieldid="17" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="18" />
-                  <AddGraphicFieldRight rightfieldId="18" />
+                  <AddGraphicField fieldid="18" />
+                  <AddGraphicFieldRight rightfieldid="18" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="19" />
-                  <AddGraphicFieldRight rightfieldId="19" />
+                  <AddGraphicField fieldid="19" />
+                  <AddGraphicFieldRight rightfieldid="19" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="20" />
-                  <AddGraphicFieldRight rightfieldId="20" />
+                  <AddGraphicField fieldid="20" />
+                  <AddGraphicFieldRight rightfieldid="20" />
                 </tr>
                 <tr className="height20">
-                  <AddGraphicField fieldId="21" />
-                  <AddGraphicFieldRight rightfieldId="21" />
+                  <AddGraphicField fieldid="21" />
+                  <AddGraphicFieldRight rightfieldid="21" />
                 </tr>
               </tbody>
             </table>
